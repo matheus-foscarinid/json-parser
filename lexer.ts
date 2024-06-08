@@ -40,6 +40,10 @@ class Lexer {
     return this.tokens;
   }
 
+  addToken(type: TokenType): void {
+    this.tokens.push(new Token(type, null));
+  }
+
   scanToken(): void {
     const c = this.advance();
 
@@ -131,5 +135,29 @@ class Lexer {
     const numStr = this.input.substring(this.start, this.position);
     const numToken = new Token(TokenType.Number, Number(numStr));
     this.tokens.push(numToken);
+  }
+
+  addIdentifier() {
+    while (isAlpha(this.peek())) {
+      this.advance();
+    }
+
+    const id = this.input.substring(this.start, this.position);
+    let type: TokenType;
+
+    switch (id) {
+      case 'true':
+      case 'false':
+        type = TokenType.Boolean;
+        break;
+      case 'null':
+        type = TokenType.Null;
+        break;
+      default:
+        throw new Error(`Unexpected identifier: "${id}" at line ${this.line}`);
+    }
+
+    const idToken = new Token(type, id);
+    this.tokens.push(idToken);
   }
 }
