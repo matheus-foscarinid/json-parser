@@ -77,12 +77,11 @@ class Lexer {
       default:
         if (isDigit(c)) {
           this.addNumber();
-        else if (isAlpha(c)) {
+        } else if (isAlpha(c)) {
           this.addIdentifier();
         } else {
           throw new Error(`Unexpected character: "${c}" at line ${this.line}!`);
         }
-      }
     }
   }
 
