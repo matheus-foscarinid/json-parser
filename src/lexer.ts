@@ -13,9 +13,9 @@ class Token {
   }
 }
 
-class Lexer {
+export default class Lexer {
   private input: string;
-  private tokens: Token[];
+  private tokens: Token[] = [];
   private position = 0;
   private start = 0;
   private line = 1;
@@ -40,11 +40,11 @@ class Lexer {
     return this.tokens;
   }
 
-  addToken(type: TokenType): void {
+  private addToken(type: TokenType): void {
     this.tokens.push(new Token(type, null));
   }
 
-  scanToken(): void {
+  private scanToken(): void {
     const c = this.advance();
 
     switch (c) {
@@ -85,19 +85,19 @@ class Lexer {
     }
   }
 
-  advance(): string {
+  private advance(): string {
     return this.input[this.position++];
   }
 
-  peek(): string {
+  private peek(): string {
     return this.input[this.position];
   }
 
-  peekNext(): string {
+  private peekNext(): string {
     return this.input[this.position + 1];
   }
 
-  addString(): void {
+  private addString(): void {
     while (this.peek() !== '"' && !this.isAtEOF()) {
       this.advance();
     }
@@ -114,7 +114,7 @@ class Lexer {
     this.tokens.push(strToken);
   }
 
-  addNumber() {
+  private addNumber() {
     while (isDigit(this.peek())) {
       this.advance();
     }
@@ -136,7 +136,7 @@ class Lexer {
     this.tokens.push(numToken);
   }
 
-  addIdentifier() {
+  private addIdentifier() {
     while (isAlpha(this.peek())) {
       this.advance();
     }
