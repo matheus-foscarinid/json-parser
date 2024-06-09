@@ -1,17 +1,8 @@
-import { JsonValue, TokenType } from './types';
+import { TokenType } from './types';
+import Token from './token';
 
 const isDigit = (c: string): boolean => c >= '0' && c <= '9';
 const isAlpha = (c: string): boolean => (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
-
-class Token {
-  type: TokenType;
-  value: JsonValue;
-
-  constructor(type: TokenType, val: JsonValue) {
-    this.type = type;
-    this.value = val;
-  }
-}
 
 export default class Lexer {
   private input: string;
@@ -143,20 +134,26 @@ export default class Lexer {
 
     const id = this.input.substring(this.start, this.position);
     let type: TokenType;
+    let value: boolean | null;
 
     switch (id) {
       case 'true':
+        type = TokenType.Boolean;
+        value = true;
+        break;
       case 'false':
         type = TokenType.Boolean;
+        value = false;
         break;
       case 'null':
         type = TokenType.Null;
+        value = null;
         break;
       default:
         throw new Error(`Unexpected identifier: "${id}" at line ${this.line}`);
     }
 
-    const idToken = new Token(type, id);
+    const idToken = new Token(type, value);
     this.tokens.push(idToken);
   }
 }

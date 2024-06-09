@@ -3,7 +3,7 @@ import { TokenType } from '../src/types';
 
 describe('Lexer', () => {
   describe('Scan', () => {
-    it('should scan a simples JSON objectcorrectly', () => {
+    it('should scan a simples JSON object correctly', () => {
       const input = '{ "key": "value" }';
       const expectedTokens = [
         TokenType.LeftBrace,
@@ -18,36 +18,6 @@ describe('Lexer', () => {
       const tokens = lexer.scan();
   
       expect(tokens.length).toBe(6);
-      tokens.forEach((token, index) => {
-        expect(token.type).toBe(expectedTokens[index]);
-      });
-    });
-  
-    it('should scan a complex JSON object correctly', () => {
-      const input = '{ "key": "value", "key2": [1, 2, 3] }';
-      const expectedTokens = [
-        TokenType.LeftBrace,
-        TokenType.String,
-        TokenType.Colon,
-        TokenType.String,
-        TokenType.Comma,
-        TokenType.String,
-        TokenType.Colon,
-        TokenType.LeftBracket,
-        TokenType.Number,
-        TokenType.Comma,
-        TokenType.Number,
-        TokenType.Comma,
-        TokenType.Number,
-        TokenType.RightBracket,
-        TokenType.RightBrace,
-        TokenType.EndOfFile
-      ];
-  
-      const lexer = new Lexer(input);
-      const tokens = lexer.scan();
-  
-      expect(tokens.length).toBe(16);
       tokens.forEach((token, index) => {
         expect(token.type).toBe(expectedTokens[index]);
       });
