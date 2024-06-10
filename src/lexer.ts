@@ -65,6 +65,13 @@ export default class Lexer {
       case '"':
         this.addString();
         break;
+      case '-':
+        if (isDigit(this.peekNext())) {
+          this.addNumber()
+        } else {
+          throw new Error('Unexpected character after "-", should be followed by digit')
+        }
+        break;
       default:
         if (isDigit(c)) {
           this.addNumber();

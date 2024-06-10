@@ -176,6 +176,27 @@ describe('Lexer', () => {
         expect(token.type).toBe(expectedTokens[index]);
       });
     });
+
+    it('should scan a JSON containing a negative number', () => {
+      const input = '{ "key": -123 }';
+      const expectedTokens = [
+        TokenType.LeftBrace,
+        TokenType.String,
+        TokenType.Colon,
+        TokenType.Number,
+        TokenType.RightBrace,
+        TokenType.EndOfFile
+      ];
+  
+      const lexer = new Lexer(input);
+      const tokens = lexer.scan();
+  
+      expect(tokens.length).toBe(6);
+      tokens.forEach((token, index) => {
+        expect(token.type).toBe(expectedTokens[index]);
+      });
+    
+    })
   });
 
   describe('Errors', () => {
