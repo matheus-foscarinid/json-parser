@@ -14,6 +14,10 @@ export default class Parser {
     return this.parseFromToken(token);
   }
 
+  walk() {
+    return '...';
+  }
+
   private parseFromToken(token: Token): JsonValue {
     if (token.type === TokenType.LeftBrace) {
       return this.parseObject();
