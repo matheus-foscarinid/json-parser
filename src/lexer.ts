@@ -96,8 +96,10 @@ export default class Lexer {
   }
 
   private addString(): void {
-    while (this.peek() !== '"' && !this.isAtEOF()) {
+    let isEscaped = false;
+    while ((this.peek() !== '"' || isEscaped) && !this.isAtEOF()) {
       this.advance();
+      isEscaped = this.peek() === "\\"
     }
 
     if (this.isAtEOF()) {

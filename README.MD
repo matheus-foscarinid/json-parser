@@ -8,7 +8,7 @@ This project is a JSON parser written in TS. It allows you to parse JSON data an
 - [x] Handle nested JSON objects and arrays
 - [x] Implement error handling for invalid JSON input
 - [x] Write unit tests to ensure the parser functions correctly
-- [ ] Add support to negative numbers
-- [ ] Add support to scientific notation, maybe
+- [x] Add support to negative numbers
 - [ ] Add support to escape characters
+- [ ] Add support to scientific notation, maybe
 

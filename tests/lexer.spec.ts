@@ -197,6 +197,26 @@ describe('Lexer', () => {
       });
     
     })
+
+    it('should support scaped characters', () => {
+      const input = '{ "key": "value \\"with quotes\\" and \\n new line" }';
+      const expectedTokens = [
+        TokenType.LeftBrace,
+        TokenType.String,
+        TokenType.Colon,
+        TokenType.String,
+        TokenType.RightBrace,
+        TokenType.EndOfFile
+      ];
+  
+      const lexer = new Lexer(input);
+      const tokens = lexer.scan();
+  
+      expect(tokens.length).toBe(6);
+      tokens.forEach((token, index) => {
+        expect(token.type).toBe(expectedTokens[index]);
+      });
+    });
   });
 
   describe('Errors', () => {
